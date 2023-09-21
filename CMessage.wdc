@@ -1,0 +1,140 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : CMessage
+ major_version : 26
+ minor_version : 0
+ type : 4
+ description : ""
+ subtype : 0
+class :
+ identifier : 0x150c5e6f0013db88
+ internal_properties : BgAAAAYAAAB2/vstTMCJbS/hlxjFxirSqKvCUuv8YxgpWyl7S3iA
+ code_elements :
+  type_code : 10
+  p_codes :
+   -
+     code : |1+
+      CMessage est une Classe
+      	_id est une chaine = ""
+       	DateCreation est une dateheure
+       	Message est une chaine = ""
+       	Auteur est un CUtilisateur
+      fin
+     type : 131072
+  procedures :
+   -
+     name : Constructeur
+     procedure_id : 1516691005352762248
+     type_code : 27
+     code : |1+
+      procédure Constructeur()
+      
+     type : 589824
+   -
+     name : Destructeur
+     procedure_id : 1516691005352827784
+     type_code : 28
+     code : |1+
+      procédure Destructeur()
+      
+     type : 655360
+   -
+     name : Analyser
+     procedure_id : 1516691894411724152
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] Analyser (<bufData> est buffer)
+      //
+      // Paramètres :
+      //	bufData (buffer) : <indiquez ici le rôle de bufData>
+      // Valeur de retour :
+      // 	chaîne ANSI : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure Analyser(bufData est un buffer) <métier> : chaine
+      
+      QUAND EXCEPTION DANS
+      	Désérialise(objet, bufData, psdJSON)
+      FAIRE
+      	renvoyer ExceptionInfo(errMessage)
+      FIN
+      
+      renvoyer ""
+     type : 458752
+   -
+     name : Formatter
+     procedure_id : 1516692727635507930
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] Formatter ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	multi-valeur : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure Formatter() : (buffer, chaine)
+      
+      bufData est un buffer = ""
+      QUAND EXCEPTION DANS
+      	Sérialise(objet, bufData, psdJSON+psdMinifié)
+      FAIRE
+      	RENVOYER (bufData, ExceptionInfo(errMessage))
+      FIN
+      
+      RENVOYER (bufData, "")
+     type : 458752
+   -
+     name : PublierSurForum
+     procedure_id : 1516760592422869229
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] PublierSurForum ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne ANSI : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure PublierSurForum() : chaine
+      
+      bufData est un Buffer
+      sErr est une chaîne
+      (bufData, sErr) = Formatter()
+      si sErr <> "" ALORS
+      	renvoyer sErr
+      FIN
+      
+      sErr = COL_COm.PublierSurForum(bufData)
+      si sErr <> "" ALORS
+      	renvoyer "Impossible d'envoyer le message"
+      FIN
+      
+      renvoyer ""
+     type : 458752
+  procedure_templates : []
+  property_templates : []
+ code_parameters :
+  internal_properties : BgAAAAYAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : Classe1
+resources :
+ string_res :
+  identifier : 0x150c5e6a000dc90a
+  internal_properties : BgAAAAYAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BgAAAAYAAABtB9HWVzrXO2+4NDRVK0vmzaNKrCKqH1DBX30lMmGZ

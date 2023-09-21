@@ -1,0 +1,81 @@
+#To edit and compare internal_properties, use WINDEV integrated tools.
+#Internal properties refer to the properties of controls in windows, reports, etc.
+info :
+ name : FI_Chat_Moi
+ major_version : 26
+ minor_version : 0
+ type : 8
+ description : ""
+ subtype : 0
+window :
+ name : FI_Chat_Moi
+ identifier : 0x250c320900866e8f
+ internal_properties : BgAAAAYAAAAyxDh0eX99bZquQa9HxbjdYy++UvkxCuyajcxRxbz7l2gBnb9wOj+70qBqKc2V0dBpdSe6fPG9kV8kJjnxl+8mrQ1gHiB7sfiZgtT6syTgks1jhXymjfilQ9qWWV+AGkfumi9pBobyEV4MmDdQlEEg8vd1IqlmdJc0scZBfrJ0r5vm4WnF/ZhkMFTsM7TMPyK5JS9PfBww5+7eI727s7dh3Cso8Bjx8NcWj3+rYNv7a97yb7wCiWtH1sWfMIjyAOgRmIHmNarLY9lQ4wNT+6EUI70SSYyvrk/QYjJ/fWYMTmoIxWbPeyhACExHy2YiNV2KJvBh7bMyKxv5KvlpjYnhuULK4gDrGUb9KriMCLMUtnfyi3GLTmNNtJLxtJtY5MdMhQBCxZ+PufUNLFdMxTOYdc0th7AlaauzP7DVySc3ZpKT1LXMFiY05emVnrvUF2YbWs0GH1VNviqEv1GFl3e/9bi7Zi82gBLAw6U8q79PrWuHO+HMsSTELbbLCFu9H0z/ybT1JUqueDKl7wA44DwMy4tpF/Dj4e/F15qdGggX1Ik8H9MckyfYEkp38jxWhYcUPviP9kqXoVeQ4PkvPfzEnER4zuZEvm3nPg1H3HRcFIAQ1MsqcR3qsRC76CdZpg9k9ommvyotjU8puDBaLdS7ccjDdZewNJvZOcM+4eKHypmSSs+cddw3AsQJYt2IV3MoojVIKxmGaBI=
+ controls :
+  -
+    name : FI_Chat_Moi
+    identifier : 0x250c320900876e8f
+    internal_properties : BgAAAAYAAAAvRf8r7bGtUYPJkd3MWD6Hz3MRUxDabZdKPAxeC3QFeuoSfmxmr1XEoiqyX7SK8cfOiDkVPxSHEZ7RJpOfhqLJvJ+4rxrIn0Dm/bDDS8pdZy1Yx01k+jH5/A9+RWm93o/ZiNuH+6R4owfP3Rb8lSnXWNaLZ3dnJagrBQhbekVsmc1vfBnO0WoCEcjyZkTbgghoY6v3RzLJpHJ/x3YXfXpgPZJ8UZ1Bxlsm/UwDD2sK8O7v8p4W1YTbbwarXN/jvTVVktskl7AldyZ2Fwxhc8oEW5GeRzYWdJmbzACRu8CIoNXMfW2n1cUB80Qiz0DwmH/23/EctU+V5+rp1BPQUsmgzesNuKe2HlaDO9snkt2Ha0nWXR/c6HGpVfcx1wfEkom3OsgLptEP2sRJzpSQNb5QwdCA1AmWcTokGAfUFJNhGcEkalva2+U/4Tz6UcqOGBITHi4uyMM=
+    controls :
+     -
+       name : LIB_BG
+       identifier : 0x250c3cf301c1110c
+       internal_properties : BgAAAAYAAACIELMUr1a9XE/iAmrXfkdAIAHOk4bWZPBkbCTGZKIA/qeBJ40DtEkc/yyFbHNp9+yDUAkNgjk6hAEhLPxuvoaaqIntAlxD+dBb/XwfFpdqdC3lxStAMpk7A9o2gENfuFQc+zdnSrQH1hyHMVshFKXQwEwkcDYuhf1IkT1ZspiA57eA/LyioM7aJNOA3yxik+uUC5OOdoHYrmo0wfHuxg+qTAAfBmklkCQQTnd1T54gjqeB8JMxGAUmKlUBi/iLqe0Kg0SkILVN2q7WAsOnfUtMYViPLgxMRZJJ5zwV9quPw0wsg/VIo4wfA5JfWVezO/yGVPOkUIpir7sjTrvbzwGNr9e9NWza8xdkBjO+NF4h/rZtpJow6VOwwJoN578DVn9DpzXjPOdZIZCDyVBzU959Rg5+UnbgbrojASge9pDGtqOpDDH6imi/DeFUMiyFVtgw0xqvTiIVw5/8e0igVTe3yc4FpFOsD05Jp3pQI9goAlPLTseqRMrSgs6CG7a9ypLT4rmGS1f8xjX6G6HS42GVZVezRtNaeVw0ejV0z5pcBUKBVQG8ryWdXdGxmBP4C3/tfCEebSwzaDouzxUU32WHbgpVDViTO94cD4ncS31eVWLLQlvv9xOKj530Sj2UaMgvlWcVkMwCaPJwQ/p7UxbT7BZPKzWXrjnhGQA+1DaclQV7MnyGWa0wZ8HrS2Zt1mFo1jZ6fFDsFc2CZGXAOLzsQbwc6EsH68GFQOURJCap8UMjzPFQkY9C+AQup8GrJwHOaGK9omrlvz1ShDdgCtq9bA==
+       type : 3
+       code_elements :
+        type_code : 2
+        p_codes : []
+     -
+       name : LIB_Message
+       identifier : 0x250c3f29024cb257
+       internal_properties : BgAAAAYAAACge2+KEbHpg2NwGndew968iJMPNTFNHmTHUMRbiXQAA3IsG0vTSEkr4iam96XRoa018fh06q7OXCGAKj7F4U/LCFIy7D1UFGrg7DLsnQsAzzihevnMwr3mGwHqwOHQWM1FGN0dLm6chsmpW2ctRqji1fhV+FlSDIH6UmAwxPzWbC5KzwMo51vweOZ5qGpOWPDkEM6xTCRj6aVgIbPNhhpyTxnNuaVs9KoKy+vZh66GocouXm3UqeIc4UiA+ABktpU+aZKoZnYGAhfjJT280DFKLp0n9zXAZWusofEDLAnlKY8uWSzW1LKJHmPEBh0mf11Al+rLf+p3MduttkMpcn/7wgFKWqZmOhqnkIkpT7g503J7LjSKzLTzOYb93GBLZuPdZa61FQJ9l9Q2i5iWrhMVrw1/2jjpirq2ILQ+G0KdrNkDhEHVLrRx8OfMICUA58PcPTIL/3/81Jd7RTStt3LYblEVYMxDAOVKFn7+ZTB5ZmeFALZZOTXknCcoh6LDQcWFc5GkNaZkGiVaEBsmapcgpSqXMwc=
+       type : 3
+       code_elements :
+        type_code : 2
+        p_codes : []
+     -
+       name : LIB_Date
+       identifier : 0x250c3fb70269dbfd
+       internal_properties : BgAAAAYAAABbQlqT+9sHP+Gayq8qEoYILLC+4bTGWKXIdFZ/cVU6dr4vnOqaAIIpLaB/Xpt9Rn/wePzKv4BUO9IfRAdFK+z+54wMVcHn49mwslwYDqHpy5G5tLBbFslACgJsyNeeQJ9uilBBBd8PgbChBZ6xxCEmACH86x5Ga0UjNh2FC+WO8XS+YY8gZCelhBTW8LadcG0SghSDfPCEyij2mGAw6+n/HkLDrc8t4dhDdCaiLR5mmDhHSNdVn8MoZWwzLyi3DjtRbJbf8uXh+InGDm1Cq6oWW8Hqtl/J2dJQRpycR3PSR1oKFx5hdT7NVGImbYxdByZONrg0Oe+ygC+PntUwsYhpARKuuYacBeYGyf0xIi9pBiHQWznTvFugG4nDa+npHkfiIvBKBVgQCAmjT5DXF/X95yLxhPUky7EeHGKfra3Fc3awi0SxOEHe1U8uBLHsIGmhoNdtrksvsE8eJmoPGXOH6QH2mqaPBxT1gnvHiYDzAZ2bDm7mx3z4/h1NJfL25nQHHAoKjN1UAGTrTinNj+zLA9x+VGmofmGwTMhj5aGHKCMTlfQz4iCJNEwXaixa3ZuRTyrxm1hLBnNkUsbf2ji8ekp42PGlmCGRNr5D6jqejNC4NZRga2JSjR7XvXvwsBmaZjVZh9/YQ4R4M7WgVqw=
+       type : 3
+       code_elements :
+        type_code : 2
+        p_codes : []
+    type : 32
+    code_elements :
+     type_code : 70
+     p_codes :
+      -
+        code : |1+
+         PROCEDURE MaFenêtre(gclMessage est un CMessage)
+         
+         
+      -
+        code : |1-
+         
+         LIB_Message	= gclMessage.Message
+         LIB_Date	= gclMessage.DateCreation
+        type : 14
+ menu :
+  name : _Menu
+  identifier : 0x250c309d0080ddb1
+  internal_properties : BgAAAAYAAADiNkh1O6bsUdojdCyc5rvMKOb4KGdCuKthEpeb9YgToXKniNhTa74qqTWW/kn9AHiAwpYRHxIfmwB4rUjWCTsHt96kYeogf6aF/P/qLr5YC+/q/4GecKHBIXzFYdqjswEetQud+3e/nTe5+xoit8ijZM2EBaVaXCH6Yfad
+  options : []
+ languages :
+  - fr-FR
+ popup_menus : []
+ message_bar : {}
+ code_elements :
+  type_code : 71
+  p_codes : []
+ code_parameters :
+  internal_properties : BgAAAAYAAAA6ih3UbgNXHwTtiPSFUEj+2fi/m7v4QV2rqidAupM=
+  original_name : FI_SansNom1
+resources :
+ string_res :
+  identifier : 0x150c309d0003ddb1
+  internal_properties : BgAAAAYAAAAnMYFQ1bL/vz9ehh7L22SNNSlIzGTOI8h5F/WtgDNP
+custom_note :
+ internal_properties : BgAAAAYAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
+rad :
+ internal_properties : BgAAAAYAAABoAN7PLpwJW3EiA7WVZdCA5EwrCA1rvutcDHooMWKe
