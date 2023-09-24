@@ -281,6 +281,8 @@ window :
    -
      code : |1+
       
+      SysIconeAjoute(ComplèteRep(FrepExe) + "windev-x-mqtt.ico")
+      
       // On demande à l'utilisateur de saisir son nom
       // Tant que l'utilisateur n'a pas défini son nom, on lui repose la même question
       sNom est une chaine = ""

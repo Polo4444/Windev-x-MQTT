@@ -18,8 +18,9 @@ project :
     type : 1
     generation_name : Windev-x-MQTT.exe
     version :
-     generation_version : 11
-     internal_generation_version : 9
+     generation_version : 14
+     internal_generation_version : 12
+    icon_filename : .\Exe\windev-x-mqtt.ico
     language : 1
  elements :
   identifier : 0x4508d1c4008cbf57

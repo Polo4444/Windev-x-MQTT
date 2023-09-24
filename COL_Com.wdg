@@ -198,6 +198,8 @@ procedure_set :
       	FIN
       FIN
       
+      AfficherNotification(clMes)
+      
       
      type : 458752
    -
@@ -422,6 +424,27 @@ procedure_set :
       FIN
       
       RENVOYER ""
+     type : 458752
+   -
+     name : AfficherNotification
+     procedure_id : 1517811832912468412
+     type_code : 15
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //AfficherNotification (<clMes> est CMessage)
+      //
+      // Paramètres :
+      //	clMes (CMessage) : <indiquez ici le rôle de clMes>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure AfficherNotification(clMes est un CMessage)
+      
+      SysIconeAfficheBulle(clMes.Message, clMes.Auteur.Nom)
      type : 458752
   procedure_templates : []
   property_templates : []
