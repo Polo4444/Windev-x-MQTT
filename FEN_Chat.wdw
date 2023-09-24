@@ -10,7 +10,7 @@ info :
 window :
  name : FEN_Chat
  identifier : 0x2508d26f014b5a64
- internal_properties : BgAAAAYAAAAGu7s9V+IpaZVbcxO0GRrLTeDhAwSK30kvKxjYyD1WoHWV70coK/XJ4IOaGnQJCyyP2rqn30olZO3LaDtII4/uBnw5gOQE7iXJXw0UVAkKSPD/2zhY6EM/UhH2vHfxXVMElxdjWjoKzFnF4tBSDoISyUGHRJIj0aVrrfDdZ9OVJbSwROa363pJRReIzFa/1U7orC2KP88ry2yKc5VhctbecvnlrR3iRV9h0+KgWwQvLnegbOAOHG2qKxKvUaNf7IGM2wqkraUe+04OE9PrhbRYpvF3WhuY/GeMEnblpg/nYRqFkKyvwqB6RQbfSWoqnKzfUS78nTfcP6C+F9RNnsB3Uo53msmjU8cg+7IwkotmWGYAvpmG5GmC08hKNI2ow29k1VUpd6mmTUisbsJYq1Ef7vk83HP6TauMW1xVd9g2rLWq9BwZ3f68Jgl9cSppW2gxsW0L9bzdjXmiurDD76dZce2xnQ98MHh4CikryQx3J5KPQiK79NGkfPPJDnD7v41ZSlGWPH8piED1ZvLc35FvUFDEgo/ehMmeC5+RmSDwqLF4XZoPmfpM3sGNo+2FHlkKtlsdzLc+HgsUFXdNfH4VySrigam5LFqJvrtRqJbY4dGxYHpBCrddZ3eIngGk2BdA0Mq26wKNdb3SjR0ySGyem+JMt86ulby03BOcNfNFr25Y3WyZwg==
+ internal_properties : BgAAAAYAAABgZWXjeYyr0yc17ZUKm5hVz5prma60+RNZ5aoCthcc6i/nedVSvQ+7etUMrNrLMXZBbHxNeWzvPh/1wi1+JY3oAH7DDnbuIG8DYU9W6ktAAjphTZa60hX5lJtoPvVzI4XeMYnJ1LysJusXjHKAMJgU0zOx+iTdI1+lbzlT0fPb60DsSJq9E4DjxYfyfgybF4DcODleGUuxpYxqJQuDkoBAjm1B6XvKu6FR84QGzbwdsM/Q6BSYGNdkW2Kxb92HbrtUm1a4++VciX5uRd1xcT7W9jELXiVcIvFITgA7eAfpb1bZdPCR9s7Q5UaFt3RKunp7tUqAIxc22YjWjcIPluYJcoZ/jcyWatw7xm0VpW4Lg5UXS9yBJ3B7zrsNEQBLlL5H4OKUKjz9ouP/kRNP2ub6TUgNg44ltIBXVoeiZrf3u8RJGUdInBlZuZzAEq3MpPdQQP4a+O9sGsA5gS1CnjSkvLCKLIbbs41zTYzktDdIdt2ibyV2x8AV62qQHytWwMyoaXaZ/2rw0ZdcnTgakWdBggJ2UL3ois+QPUE3R5IGQivyxyB1c9CiYEMPIWM/5KP0mLWzOgGE5M1W17WDNsTfM5xsd6e7KliLsK2nxmiOG+tLikCPxG2TqQkaDLceZqHKWlwkebxDq+eMN6uAGhLAvYzmLUQwEzo2XpUSo2XLMZB6/0q/5A==
  controls :
   -
     name : BTN_Se_déconnecter
@@ -30,6 +30,7 @@ window :
       -
         code : |1-
          
+         COL_Com.ArretSouscriptions()
          COL_Com.gSess.Déconnecte()
          Ferme()
         type : 18
@@ -149,7 +150,7 @@ window :
                // Persistance et UI
                gtabMessages.Ajoute(clMes)
                ZR_Chat.AjouteFI(FI_Chat_Moi, clMes)
-               ZR_Chat.Position(gtabMessages..Occurrence)
+               ZR_Chat.Position(ZR_Chat..Occurrence)
                SAI_Texte = ""
               type : 18
             -
@@ -178,8 +179,26 @@ window :
       PROCEDURE MaFenêtre()
       
       gtabMessages est un tableau de CMessage
+      
+      // On lance l'écoute de messages
+      COL_Com.EcouterMessages(COL_Com.FORUM_TOPIC, EcouterMessagesForum)
    -
      code : |1-
+      
+      // On demande à l'utilisateur de saisir son nom
+      // Tant que l'utilisateur n'a pas défini son nom, on lui repose la même question
+      sNom est une chaine = ""
+      TANTQUE sNom = ""
+      	SELON Saisie(<§?151002F6002E8AB3§>, sNom)
+      		CAS 1 :
+      			SI SansEspace(sNom) = "" ALORS
+      				sNom = ""
+      				CONTINUER
+      			FIN
+      			gclMyUser.Nom = sNom
+      			MaFenêtre..Titre = "Chat - " + sNom
+      	FIN
+      FIN
       
       sNomFI est une chaine = ""
       pour tout clMes de gtabMessages
@@ -195,6 +214,65 @@ window :
    -
      type : 230
      enabled : false
+  procedures :
+   -
+     name : EcouterMessagesForum
+     procedure_id : 1517714418749194440
+     type_code : 14
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //EcouterMessagesForum (<sTopic> est chaîne, <clMes> est CMessage)
+      //
+      // Paramètres :
+      //	sTopic (chaîne ANSI) : <indiquez ici le rôle de sTopic>
+      //	clMes (CMessage) : <indiquez ici le rôle de clMessage>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure EcouterMessagesForum(sTopic est une chaîne, clMes est un CMessage)
+      
+      // On s'assure d'être sur le bon topic
+      si sTopic <> COL_Com.FORUM_TOPIC ALORS
+      	retour
+      FIN
+      
+      // Si je suis l'auteur du message, on ne fait rien
+      si clMes.Auteur._id = gclMyUser._id ALORS
+      	retour
+      FIN
+      
+      // On ajoute le messages à la liste des messages et à la zone répétée
+      gtabMessages.Ajoute(clMes)
+      ExécuteThreadPrincipal(AfficheMessageAutre, clMes)
+     type : 458752
+   -
+     name : AfficheMessageAutre
+     procedure_id : 1517743701839825258
+     type_code : 14
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //AfficheMessageAutre (<clMes> est CMessage)
+      //
+      // Paramètres :
+      //	clMes (CMessage) : <indiquez ici le rôle de clMes>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure AfficheMessageAutre(clMes est un CMessage) <UI>
+      
+      FEN_Chat.ZR_Chat.AjouteFI(FI_Chat_Autre, clMes)
+      FEN_Chat.ZR_Chat.Position(FEN_Chat.ZR_Chat..Occurrence)
+     type : 458752
+  procedure_templates : []
+  property_templates : []
  code_parameters :
   internal_properties : BgAAAAYAAAAwjDLmDSZ0H1P68nJIeNfqR9EvRjU/K+sVcM1T6rhVNr+VTV1mZ/rmoweYbFDZUhBGcv8UsxlDxVCOnb2U/SQOvlGWzNby3/w/V+ppSymxv+Vh
   original_name : Modele1
@@ -202,6 +280,19 @@ resources :
  string_res :
   identifier : 0x1508d23200036ab5
   internal_properties : BgAAAAYAAAAa2Zm8J9E/zh+/WIrVvz1fER/So3PB0gjQuxc1xKQVWY4ZDm5lfg==
+ dialogs :
+  -
+    identifier : 0x151002f6002e8ab3
+    internal_properties : BgAAAAYAAADj0a9A3ZOgBYyQBp47+NQwNevNYtSALMrhnRjEPzA256e8UA==
+    label :
+     fr-FR : Quel est votre nom?
+    image : {}
+    buttons :
+     -
+       label :
+        fr-FR : Sauvegarder
+       image : {}
+       value : 1
 custom_note :
  internal_properties : BgAAAAYAAAC68/W0/adbG0nFCRhrE42B5HRnbDzVHaz86sSQyxlBk7I=
 rad :
