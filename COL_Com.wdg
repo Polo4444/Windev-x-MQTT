@@ -16,7 +16,17 @@ procedure_set :
    -
      code : |1-
       
-      gSess est une mqttSession
+      // Constantes de topics
+      constante
+      	FORUM_TOPIC = "forum"
+      fin
+      
+      gSess			est une mqttSession
+      
+      // Liste de procédures à appelées lorsqu'un nouveau message est reçu
+      // Syntaxe: PROCÉDURE Recevoir(sTopic est une chaîne, clMes est un CMessage)
+      // La clé est le topic
+      gtaMessageFuncs	est un tableau associatif de tableau associatif de procédures
      type : 720896
   procedures :
    -
@@ -73,12 +83,152 @@ procedure_set :
       //
       procédure PublierSurForum(bufData est un buffer) : chaine
       
-      nRes est un entier = gSess.Publie("forum", bufData, vrai, mqttQualitéExactementUneFois)
+      nRes est un entier = gSess.Publie(FORUM_TOPIC, bufData, vrai, mqttQualitéExactementUneFois)
       si nRes = -1 ALORS
       	renvoyer "-1"
       FIN
       
       renvoyer ""
+     type : 458752
+   -
+     name : Souscriptions
+     procedure_id : 1517704725007585064
+     type_code : 15
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] Souscriptions ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	booléen : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure Souscriptions() : booléen
+      
+      // On s'abonne aux messages provenant du forum
+      si pas gSess.Abonne(FORUM_TOPIC, mqttQualitéExactementUneFois, RecevoirDepuisForum) ALORS
+      	renvoyer faux
+      FIN
+      
+      renvoyer vrai
+     type : 458752
+   -
+     name : RecevoirDepuisForum
+     procedure_id : 1517704780842239073
+     type_code : 15
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //RecevoirDepuisForum (<sess> est mqttSession, <sTopic> est chaîne, <body> est buffer)
+      //
+      // Paramètres :
+      //	sess (mqttSession) : <indiquez ici le rôle de sess>
+      //	sTopic (chaîne ANSI) : <indiquez ici le rôle de sTopic>
+      //	body (buffer) : <indiquez ici le rôle de bufUnbuffer>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure RecevoirDepuisForum(...
+      	sess est un mqttSession <utile>,...
+      	sTopic est une chaîne,...
+      	bufBody est un Buffer...
+      )
+      
+      // On analyse le message
+      clMes est un CMessage
+      sErr est une chaine = clMes.Analyser(bufBody)
+      si sErr <> "" ALORS
+      	retour // On interrompt le processus
+      FIN
+      
+      // On vérifie si il existe au moins une fonction pour le topic
+      si pas gtaMessageFuncs[sTopic]..Existe ALORS
+      	RETOUR // On interrompt le processus
+      FIN
+      
+      // On appelle chacune des fonctions ayant souscrit au topic:
+      tabASupprimer est un tableau de chaines
+      pour TOUT func, sClé DE gtaMessageFuncs[sTopic]
+      	
+      	// En cas d'erreur, on supprime la fonction de la liste des écoutes.
+      	// On met ainsi en place ue stratégie de self-healing et on évite des crash de l'application.
+      	QUAND EXCEPTION DANS
+      		funcToRun est une procédure = func
+      		funcToRun(sTopic, clMes)
+      	FAIRE
+      		tabASupprimer.Ajoute(sClé)
+      	FIN
+      FIN
+      	
+      // On Supprime les fonctions
+      Pour tout sClé de tabASupprimer
+      	
+      	QUAND EXCEPTION DANS
+      		gtaMessageFuncs[sTopic].Supprime(sClé)
+      	FAIRE
+      		
+      	FIN
+      FIN
+      
+      
+     type : 458752
+   -
+     name : EcouterMessages
+     procedure_id : 1517710351414939321
+     type_code : 15
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //EcouterMessages (<sTopic> est chaîne, <func> est procédure)
+      //
+      // Paramètres :
+      //	sTopic (chaîne ANSI) : <indiquez ici le rôle de sTopic>
+      //	func (procédure) : <indiquez ici le rôle de func>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure EcouterMessages(sTopic est une chaine, func est une procédure)
+      
+      si pas gtaMessageFuncs[sTopic]..Existe ALORS
+      	
+      	taFuncs est un tableau associatif de procédures
+      	taFuncs[DonneGUID(guidBrut)] = func	// On génère un id aléatoire de fonctions
+      	gtaMessageFuncs[sTopic] = taFuncs
+      	retour
+      FIN
+      
+      gtaMessageFuncs[sTopic][DonneGUID()] = func
+     type : 458752
+   -
+     name : ArretSouscriptions
+     procedure_id : 1517718752374040284
+     type_code : 15
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // ArretSouscriptions ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure ArretSouscriptions()
+      
+      gSess.DésabonneTout()
      type : 458752
   procedure_templates : []
   property_templates : []
