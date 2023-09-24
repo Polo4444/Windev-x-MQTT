@@ -29,7 +29,8 @@ window :
         type : 14
       -
         code : |1-
-         
+         gclMyUser.Status = CUtilisateur.StatusHorsLigne()
+         gclMyUser.PublierStatus()
          COL_Com.ArretSouscriptions()
          COL_Com.gSess.Déconnecte()
          Ferme()
@@ -40,7 +41,7 @@ window :
   -
     name : ZR_Chat
     identifier : 0x250c608a04771639
-    internal_properties : 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
+    internal_properties : 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
     controls : []
     columns : []
     type : 30
@@ -80,7 +81,7 @@ window :
   -
     name : DISP_Message
     identifier : 0x250c8e0b06c8db70
-    internal_properties : BgAAAAYAAACpII6TPR0bPmgZGTB5DvKJdUN1FrijP/LJVKAu178N3PFcnQL/Luf6GO4DgOPyGVTThb7LtYIdyQU9VEpxj3jpyqyANEZ9BJgKgC9r1GSbr9N3aHsCEShRkfx2Ys8XL/DcJPqFFS9k9f8iVz7hranhYjgPdlvc22F0O8HQXFTL4MJIm4+xh9j/528N+hGEYqpiFyXLN45M92nD+1U8jvv4cXRCVtmT+llQ+BbSfpP5oRxRsQFEmW7GjMUFuB67HvgpXmP1VsGUXwytC11dMMs4OxmfRi4dJ301Zu8qF0b0MMV2cAtHotXJMaI4j2nGZvsu1DFBZJOxEn6G8LKKJhdhIEV82GmwfE/qZjBd55UKqeJSGuM3zQWhyJLl518TYNJ7HoDXGiW6683JY+7yNX4+mlFJZ4dMP0SSdxy/mb+PXL7kjoCPHngmwbu20YWyFC93dPKYzTzi0E5UIx72vbtUh0IIGzj6XtKL2lKl19e3lJiaNYtb+UcwSaD/OJvZ1IO1x5Yy06Vg77Of5FxnwFiHHPs69MMel77XQ3opANPz1OifGFgB8NBKqyVDWom75c3ZbvGHOdk2pvcAQJe2CNUUwhShosGNPlvxA3F4JNTKb6gc6YLJBZLyYzETSlZ9kSeLtrNmQOtDvw7ANxTk0XL0XvbtjXz7TQN2kKM7z/15wDIyOXNRjGpdRtX82I9DkJfFPTQfK34TyhtMqOeLdB/6qovJVGxrtfiQMvlzk/DE9iGN2eQxwOhWOR0ZUDKk3g==
+    internal_properties : BgAAAAYAAACpII6TPR0bPmgZGTB5DvKJdUN1FrijP/LJVKAu1z53xa2wSUrDZpdm3GIDSE+CuWBXkRJbUYodzUHZTMrFZygl7gjs/Fq9ZNRu5B9jCLSrI+fTXCNeSSBlheCWUhPfPxywyGYNoY80QateX8a9BZlV9hyTPgd0A+24T7mACASTBIb8J5fd11Dzu1MlynW8gmbGMyGzY7ZEK73XU81wdnN87Rgm1oU7chUEXM6K8vuh/aC1DakgSSZqQDm9QLITPhQ9wiftGoHMQwjZm/2xuDM8Nx3zNgIVX6GR8h8Sg0YMxAEy3Lubqv0llfaoBxV+JufaONXhiOPZJkoS+Equ9setXJEAIF2AnFtGIvD9k/16PTaG5gsDFR2ltE5Vn9vzmERNXB75MK88Sa8HEThMx/CQzH8/kbX+6YosPVLBk7GpVrjS9KpN2BrkQ4Hs47ds7snh4jgCI34s1kBiIZgYV1UWWYA27XZcyJiF8BifwcmZXtJQq1VJy+EGU76d0j3DHoW3xVRU2V8iDYXVuoZR4kqxJvl4xvmoCexBeRBTOoVNdgq95rp/0toQ1UsJHBtFJ5cDBEcxj4PYNAnmlvGQ+jf21CIPtK8fyIHTka86ngZMkUpKX1yv50zo3QdpBNDPG4ntJGGoLuUl7TD+9daeU8RGsFwLv4r1TzF4LiGFOa9rGvxwt+WfVjxLMLPqoinlsrHv2wLxEVDd4CUq1rldjnFxKYvJVGxrtfiQMvlzk/DE9iGN2eQxwOhWOR0ZUDKk3g==
     cells :
      -
        internal_properties : BgAAAAYAAAD1pVHa1xLXbNzm/bp+lac2Kw76Tbt4JmgpHg0gLFyC0Fpp0q9fp2P9ZQg7LWJNrCEqNR4p+ARrdGqDsvFRqt53uRQHQAtyzdZ38pgfSA4sc8HUoAxr+6nddDo8Nt+nDMKv1vdaa7YrOpqwid0n3if6bw==
@@ -161,6 +162,89 @@ window :
     code_elements :
      type_code : 151
      p_codes : []
+  -
+    name : ZR_Utilisateurs
+    identifier : 0x251031d60204a98b
+    internal_properties : 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
+    controls :
+     -
+       name : LIB_Utilisateur
+       identifier : 0x251032b8037a19da
+       internal_properties : BgAAAAYAAACUKFXJVSEMO1zlDJ5Eo/aSiapxywWe29idfoaow1UoW5Kw2pdORnoI9OiiqRQ3tnhlfKqP37Apje7c9u7eWf2GNnQCLeNQpJSbD1X2/dWH6a7hDpgaM8mJNfdJwY9+F74YsMl7iiAeNEDsU7ZrS7sMrITGVtRQoUpnWBhH4+5fyEWvcloAi7phlhofU8JpAHcKUpzh0mhCCRPxIVpxj0garaj0dcq2W2VQ/Wg0dbjPHnL3NjElWUW0pZd+doTjXi40bNZBhuymD/zoSiWbz/jHchiKlceBhrF+3idKxDtlaFHRHT8H6jVnb7u4beylv+/7vULvmSHfe3Kq/NPWA3lklZT5+ceeqe8IdBrU02ACndjkx9Tq/mceOZqCnFLCsPzIHRGYMtYF9VQQLW/7WfdyDw1/f7rkUkKMqbGPWdNiQCPHmI4molKivXnm5ujagwkkNBurvHGrnPaLA0KByhTWW9wQLMd6DihryqHGQsLA/ewmepPGlgeuc+Q1J13XXFp1I+k9fPL53R83V62kXWfqqwpqnIlb9MJAjB4hPeb3cx0bxZCqRP1I6UPGnbNxxa7u6wdwNvdXjYHJfbh2OQ1FspwJC8WnlCo23g==
+       type : 3
+       code_elements :
+        type_code : 2
+        p_codes :
+         -
+           code : |1+
+            // Version 1
+            // Description 
+            // Libellé simple
+           type : 14
+     -
+       name : FRM_Status
+       identifier : 0x251032e20398bf23
+       internal_properties : BgAAAAYAAAC3OXUMfr4z2SgQMCRIRYGEYpoP2UjfZHGhWa2NWbPBxTbwIhXAqm4wXyvLFnOVtt/QGZLOntkDvYj9NHxaN3Femf6OJuhe0WOWv3iyLZ+bD/z3INiyjTtLf3iyQ4tKFZ6ipUb2zuhP7I7JhGTpEz8vurdRyax+ChoCt2g/XPEC1lrdT3p1GkyYLG14nDGmUt/6llcQ8O4aFpaSoZpZ+OC7gQ8hGzBUByCfCKriZahObwhb3swg8rM4tXRvLt3v/MX0fg/BX7vd8Y8++YkmtG1Z+Rq0Ka2Wk93avfSdiLtMPscIqeAAUj7BeMzvZInuJ+A9OMigj4h+sPEYC6uIFkGYATLBrGuj0cQoTOhK9dZLXM2et6lJYz5nyhho0dW9rTrMwfZa9kRf8ViaNyeZ/dmrTyqbqpfpKg==
+       type : 20
+       code_elements :
+        type_code : 32
+        p_codes : []
+    columns :
+     -
+       name : ATT_SAI_Utilisateur_Nom
+       identifier : 0x251031d7021ea9f8
+       internal_properties : BgAAAAYAAACzHdCmsaAS71pS/H0BuNhuTXor4fCE0wzNEP2hwKKPu/ADtSsE4nLCyhsHS3M27zi83fQvuVZc9PMF3d8OyYT7TIZhGzxRSDIej2hsVEZHI4X2ZitJnRg4DRz26xcmIp+HwT2q51chVLfiFz8I9+LK7ajwRK3/YWpWNjSyY5r68I0G61UCudrndnARaQHk0SRWpl/m9QjZj4Qs0dDG55WWpw==
+       type : 3
+       content :
+        identifier : 0x251031d7021faa08
+        internal_properties : BgAAAAYAAAB7VBvqndCyuGhX7ge6KewHyrIOFb8bXYmNsZ5HClvIhtswde+I4ttopSWvlif2e/RFvf31Wa4SlMvjCHiddxk64bQGzJF99YgwBqFL6k0/4zUOU9sI4Nff4afL92G4gAooDTjqGbYN1Gtr/PQE08P0a2teGKX/EyChsc8ee2nGlHZ8SZ2LxtSN5l/SIViIrm5IZ7yI9sPhPaflSy4oPeBe7w==
+        type : 3
+       code_elements :
+        type_code : 46
+        p_codes : []
+     -
+       name : ATT_Status
+       identifier : 0x251033cd03c15673
+       internal_properties : BgAAAAYAAAApX+8jjr5APAuAoj1SpIgUI5AJOG1gGhYW+CuguJVBtZd79qB3FBMxj+Si288x1GpaiAEIHmx6bZulsGCDFaZ61ClUtvRZbaRPSL5T1meIjP0Co6AOc2ji0mjFaERNZVImpGWu4w4ozTVXvQWGN4r0+L+yYJmKONsGb2RkjS4Hx6/dJXYGdd6rKCo5VOvaCjsFwIL0KdOYzSygqA==
+       type : 3
+       content :
+        identifier : 0x251033cd03c25673
+        internal_properties : BgAAAAYAAAB7VBvqndCyuGhX7ge6KewHyrIOFb8bXYmNsZ5HClvIhtswde+I4ttopSWvlif2e/RFvf31Wa4SlMvjCHiddxk64bQGzJF99YgwBqFL6k0/4zUOU9sI4Nff4afL92G4gAooDTjqGbYN1Gtr/PQE08P0a2teGKX/EyChsc8ee2nGlHZ8SZ2LxtSN5l/SIViIrm5IZ7yI9sPhPaflSy4oPeBe7w==
+        type : 3
+       code_elements :
+        type_code : 46
+        p_codes : []
+    type : 30
+    code_elements :
+     type_code : 42
+     p_codes :
+      -
+        type : 22
+        enabled : false
+      -
+        type : 24
+        enabled : false
+      -
+        type : 23
+        enabled : false
+      -
+        type : 25
+        enabled : false
+      -
+        type : 230
+        enabled : false
+      -
+        type : 241
+        enabled : false
+      -
+        type : 222
+        enabled : false
+      -
+        type : 223
+        enabled : false
+      -
+        type : 224
+        enabled : false
  menu :
   name : _Menu
   identifier : 0x292573e513b5f221
@@ -178,12 +262,24 @@ window :
      code : |1+
       PROCEDURE MaFenêtre()
       
+      STUtilisateurAdapter est une structure
+      	Utilisateur est un CUtilisateur
+      	
+      	// Status assigne une couleur en fonction de la présence de l'utilisateur
+      	Status est une Couleur	
+      fin
+      
+      // Liste de messages
       gtabMessages est un tableau de CMessage
       
-      // On lance l'écoute de messages
+      // Liste des utilisateurs
+      gtabUtilisateursAdapter est un tableau de STUtilisateurAdapter
+      
+      // On lance les écoutes de messages
       COL_Com.EcouterMessages(COL_Com.FORUM_TOPIC, EcouterMessagesForum)
+      COL_Com.EcouterStatus(COL_Com.STATUS_TOPIC, EcouterStatusUtilisateur)
    -
-     code : |1-
+     code : |1+
       
       // On demande à l'utilisateur de saisir son nom
       // Tant que l'utilisateur n'a pas défini son nom, on lui repose la même question
@@ -210,6 +306,13 @@ window :
       	FIN
       	ZR_Chat.AjouteFI(sNomFI, clMes)
       FIN
+      
+      // On signale son status
+      gclMyUser.Status = CUtilisateur.StatusEnLigne()
+      gclMyUser.PublierStatus()
+      
+      // On demande les status existants
+      COL_Com.PublierDemandeStatusExistants()
      type : 34
    -
      type : 230
@@ -270,6 +373,117 @@ window :
       
       FEN_Chat.ZR_Chat.AjouteFI(FI_Chat_Autre, clMes)
       FEN_Chat.ZR_Chat.Position(FEN_Chat.ZR_Chat..Occurrence)
+     type : 458752
+   -
+     name : EcouterStatusUtilisateur
+     procedure_id : 1517770395066343793
+     type_code : 14
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //EcouterStatusUtilisateur (<sTopic> est chaîne, <clUtilisteur> est CUtilisateur)
+      //
+      // Paramètres :
+      //	sTopic (chaîne ANSI) : <indiquez ici le rôle de sTopic>
+      //	clUtilisteur (CUtilisateur) : <indiquez ici le rôle de clUtilisteur>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure EcouterStatusUtilisateur(sTopic est une chaîne, clUtilisteur est un CUtilisateur)
+      
+      // On s'assure d'être sur le bon topic
+      SI sTopic <> COL_Com.STATUS_TOPIC ALORS
+      	RETOUR
+      FIN
+      
+      // On verifie si l'utilisateur existe déjà dans la liste.
+      // Si oui on met à jour son status
+      bExiste est un booléen = faux
+      pour tout stUtilisateur, nIndex de gtabUtilisateursAdapter
+      	
+      	si stUtilisateur.Utilisateur._id = clUtilisteur._id ALORS
+      		
+      		// On met à jour le status de l'utilisateur
+      		gtabUtilisateursAdapter[nIndex].Utilisateur.Status = clUtilisteur.Status
+      		gtabUtilisateursAdapter[nIndex].Status = ObtenirCouleurStatus(clUtilisteur.Status)
+      		bExiste = vrai
+      		SORTIR // on arrête la boucle
+      	FIN
+      FIN
+      
+      si pâs bExiste ALORS
+      	
+      	// ON crée un nouvel utilisateur avec son status
+      	stUtilisateur est un STUtilisateurAdapter
+      	stUtilisateur.Utilisateur = clUtilisteur
+      	stUtilisateur.Status = ObtenirCouleurStatus(clUtilisteur.Status)
+      	gtabUtilisateursAdapter.Ajoute(stUtilisateur)
+      FIN
+      
+      // On rafraichit la liste des utilisateurs
+      ExécuteThreadPrincipal(AfficheUtilisateurStatus)
+     type : 458752
+   -
+     name : AfficheUtilisateurStatus
+     procedure_id : 1517770618404694529
+     type_code : 14
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //AfficheUtilisateurStatus ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure AfficheUtilisateurStatus() <UI>
+      
+      FEN_Chat.ZR_Utilisateurs.Affiche(taCourantBandeau)
+     type : 458752
+   -
+     name : ObtenirCouleurStatus
+     procedure_id : 1517771881125177632
+     type_code : 14
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] ObtenirCouleurStatus (<nStatus> est entier)
+      //
+      // Paramètres :
+      //	nStatus (entier) : <indiquez ici le rôle de nStatus>
+      // Valeur de retour :
+      // 	Couleur : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure ObtenirCouleurStatus(nStatus est un entier) :  Couleur
+      
+      cCouleur est une Couleur
+      selon nStatus
+      	
+      	cas -1:
+      		cCouleur =  HTMLVersRVB("#616161")	// Gris
+      	
+      	cas 0:
+      		cCouleur = HTMLVersRVB("#F2A600")	// Orange
+      		
+      	CAS 1:
+      		cCouleur = HTMLVersRVB("#0D904F")	// Vert
+      	
+      	AUTRE CAS
+      		cCouleur =  HTMLVersRVB("#616161")	// Hors ligne par défaut
+      FIN
+      
+      renvoyer cCouleur
+      
      type : 458752
   procedure_templates : []
   property_templates : []

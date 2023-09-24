@@ -18,7 +18,7 @@ class :
       CUtilisateur est une Classe
       	_id est une chaine = ""
        	Nom est une chaine = ""
-      	
+      	Status est un entier
       fin
      type : 131072
   procedures :
@@ -38,6 +38,158 @@ class :
       procédure Destructeur()
       
      type : 655360
+   -
+     name : StatusEnLigne
+     procedure_id : 1517763510229543803
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] StatusEnLigne ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	entier : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure publique globale StatusEnLigne() <métier> : entier
+      
+      renvoyer 1
+     type : 458752
+   -
+     name : StatusDistant
+     procedure_id : 1517763699208214222
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] StatusDistant ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	entier : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure PUBLIQUE GLOBALE StatusDistant() <métier> : entier
+      
+      renvoyer 0
+     type : 458752
+   -
+     name : StatusHorsLigne
+     procedure_id : 1517763785107580048
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] StatusHorsLigne ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	entier : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure PUBLIQUE GLOBALE StatusHorsLigne() <métier> : entier
+      
+      renvoyer -1
+     type : 458752
+   -
+     name : Analyser
+     procedure_id : 1517765400015463236
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] Analyser (<bufData> est buffer)
+      //
+      // Paramètres :
+      //	bufData (buffer) : <indiquez ici le rôle de bufData>
+      // Valeur de retour :
+      // 	chaîne ANSI : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure Analyser(bufData est un buffer) <métier> : chaîne
+      
+      QUAND EXCEPTION DANS
+      	Désérialise(objet, bufData, psdJSON)
+      FAIRE
+      	RENVOYER ExceptionInfo(errMessage)
+      FIN
+      
+      RENVOYER ""
+     type : 458752
+   -
+     name : Formatter
+     procedure_id : 1517765434375209151
+     type_code : 12
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // Formatter ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure Formatter() : (Buffer, chaîne)
+      
+      bufData est un Buffer = ""
+      QUAND EXCEPTION DANS
+      	Sérialise(objet, bufData, psdJSON+psdMinifié)
+      FAIRE
+      	RENVOYER (bufData, ExceptionInfo(errMessage))
+      FIN
+      
+      RENVOYER (bufData, "")
+      
+     type : 458752
+   -
+     name : PublierStatus
+     procedure_id : 1517767118002584325
+     type_code : 12
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // PublierStatus ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure PublierStatus() : chaine
+      
+      bufData	est un Buffer
+      sErr	est une chaîne
+      (bufData, sErr) = Formatter()
+      SI sErr <> "" ALORS
+      	RENVOYER sErr
+      FIN
+      
+      sErr = COL_Com.PublierStatus(bufData)
+      SI sErr <> "" ALORS
+      	RENVOYER "Impossible d'envoyer le status"
+      FIN
+      
+      RENVOYER ""
+     type : 458752
   procedure_templates : []
   property_templates : []
  code_parameters :

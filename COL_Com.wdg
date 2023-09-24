@@ -14,11 +14,13 @@ procedure_set :
   type_code : 31
   p_codes :
    -
-     code : |1-
+     code : |1+
       
       // Constantes de topics
       constante
       	FORUM_TOPIC = "forum"
+      	STATUS_TOPIC = "status"
+      	STATUS_EXISTANTS_TOPIC = "status/existants"
       fin
       
       gSess			est une mqttSession
@@ -27,6 +29,12 @@ procedure_set :
       // Syntaxe: PROCÉDURE Recevoir(sTopic est une chaîne, clMes est un CMessage)
       // La clé est le topic
       gtaMessageFuncs	est un tableau associatif de tableau associatif de procédures
+      
+      // Liste de procédures à appelées lorsque le status d'un utilisateur est reçu
+      // Syntaxe: PROCÉDURE Recevoir(sTopic est une chaîne, clUtilisateur est un CUtilisateur)
+      // La clé est le topic
+      gtaStatusFuncs	est un tableau associatif de tableau associatif de procédures
+      
      type : 720896
   procedures :
    -
@@ -83,7 +91,7 @@ procedure_set :
       //
       procédure PublierSurForum(bufData est un buffer) : chaine
       
-      nRes est un entier = gSess.Publie(FORUM_TOPIC, bufData, vrai, mqttQualitéExactementUneFois)
+      nRes est un entier = gSess.Publie(FORUM_TOPIC, bufData, faux, mqttQualitéExactementUneFois)
       si nRes = -1 ALORS
       	renvoyer "-1"
       FIN
@@ -109,10 +117,23 @@ procedure_set :
       //
       procédure Souscriptions() : booléen
       
+      gSess.DésabonneTout()
+      
+      // On s'abonne à la demande de status existants
+      SI PAS gSess.Abonne(STATUS_EXISTANTS_TOPIC, mqttQualitéExactementUneFois, RecevoirDemandeStatus) ALORS
+      	RENVOYER Faux
+      FIN
+      
+      // On s'abonne aux status des utilisateurs
+      SI PAS gSess.Abonne(STATUS_TOPIC, mqttQualitéExactementUneFois, RecevoirStatus) ALORS
+      	RENVOYER Faux
+      FIN
+      
       // On s'abonne aux messages provenant du forum
       si pas gSess.Abonne(FORUM_TOPIC, mqttQualitéExactementUneFois, RecevoirDepuisForum) ALORS
       	renvoyer faux
       FIN
+      
       
       renvoyer vrai
      type : 458752
@@ -229,6 +250,178 @@ procedure_set :
       procédure ArretSouscriptions()
       
       gSess.DésabonneTout()
+     type : 458752
+   -
+     name : RecevoirStatus
+     procedure_id : 1517764639806140036
+     type_code : 15
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // RecevoirStatus ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure RecevoirStatus(...
+      	sess	est un mqttSession	<utile>,...
+      	sTopic	est une chaîne,...
+      	bufBody	est un Buffer...
+      )
+      
+      // On analyse l'utilisateur
+      clUtilisateur	est un CUtilisateur
+      sErr	est une chaine	= clUtilisateur.Analyser(bufBody)
+      SI sErr <> "" ALORS
+      	RETOUR // On interrompt le processus
+      FIN
+      
+      // On vérifie si il existe au moins une fonction pour le topic
+      SI PAS gtaStatusFuncs[sTopic]..Existe ALORS
+      	RETOUR // On interrompt le processus
+      FIN
+      
+      // On appelle chacune des fonctions ayant souscrit au topic:
+      tabASupprimer est un tableau de chaines
+      POUR TOUT func, sClé DE gtaStatusFuncs[sTopic]
+      	
+      	// En cas d'erreur, on supprime la fonction de la liste des écoutes.
+      	// On met ainsi en place ue stratégie de self-healing et on évite des crash de l'application.
+      	QUAND EXCEPTION DANS
+      		funcToRun est une procédure = func
+      		funcToRun(sTopic, clUtilisateur)
+      	FAIRE
+      		tabASupprimer.Ajoute(sClé)
+      	FIN
+      FIN
+      
+      // On Supprime les fonctions
+      POUR TOUT sClé de tabASupprimer
+      	
+      	QUAND EXCEPTION DANS
+      		gtaStatusFuncs[sTopic].Supprime(sClé)
+      	FAIRE
+      		
+      	FIN
+      FIN
+      
+      
+     type : 458752
+   -
+     name : PublierStatus
+     procedure_id : 1517766009900895201
+     type_code : 15
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //[ <Résultat> = ] PublierStatus ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	chaîne ANSI : // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure PublierStatus(bufData est un buffer) : chaine
+      
+      nRes est un entier = gSess.Publie(STATUS_TOPIC, bufData, faux, mqttQualitéExactementUneFois)
+      SI nRes = -1 ALORS
+      	RENVOYER "-1"
+      FIN
+      
+      RENVOYER ""
+     type : 458752
+   -
+     name : EcouterStatus
+     procedure_id : 1517784478264830082
+     type_code : 15
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // EcouterStatus ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure EcouterStatus(sTopic est une chaine, func est une procédure)
+      
+      SI PAS gtaStatusFuncs[sTopic]..Existe ALORS
+      	
+      	taFuncs est un tableau associatif de procédures
+      	taFuncs[DonneGUID(guidBrut)]	= func	// On génère un id aléatoire de fonctions
+      	gtaStatusFuncs[sTopic]			= taFuncs
+      	RETOUR
+      FIN
+      
+      gtaStatusFuncs[sTopic][DonneGUID()] = func
+      
+     type : 458752
+   -
+     name : RecevoirDemandeStatus
+     procedure_id : 1517790684493035278
+     type_code : 15
+     code : |1+
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      //RecevoirDemandeStatus (<sess> est mqttSession, <sTopic> est chaîne, <bufBody> est buffer)
+      //
+      // Paramètres :
+      //	sess (mqttSession) : <indiquez ici le rôle de sess>
+      //	sTopic (chaîne ANSI) : <indiquez ici le rôle de sTopic>
+      //	bufBody (buffer) : <indiquez ici le rôle de bufBody>
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure RecevoirDemandeStatus(...
+      	sess	est un mqttSession	<utile>,...
+      	sTopic	est une chaîne <utile>,...
+      	bufBody	est un Buffer <utile>...
+      )
+      
+      gclMyUser.PublierStatus()
+      
+     type : 458752
+   -
+     name : PublierDemandeStatusExistants
+     procedure_id : 1517791165529418394
+     type_code : 15
+     code : |1-
+      // Résumé : <indiquez ici ce que fait la procédure>
+      // Syntaxe :
+      // PublierDemandeStatusExistants ()
+      //
+      // Paramètres :
+      //	Aucun
+      // Valeur de retour :
+      // 	Aucune
+      //
+      // Exemple :
+      // Indiquez ici un exemple d'utilisation.
+      //
+      procédure PublierDemandeStatusExistants()
+      
+      bufData est un buffer = "{}"
+      nRes est un entier = gSess.Publie(STATUS_EXISTANTS_TOPIC, bufData, faux, mqttQualitéExactementUneFois)
+      SI nRes = -1 ALORS
+      	RENVOYER "-1"
+      FIN
+      
+      RENVOYER ""
      type : 458752
   procedure_templates : []
   property_templates : []
