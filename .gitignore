@@ -77,6 +77,7 @@ Thumbs.db
 # Applications
 *.app
 *.exe
+# !Install_Exécutable Windows 32 bits/Windev-x-MQTT.exe
 *.dll
 *.war
 
